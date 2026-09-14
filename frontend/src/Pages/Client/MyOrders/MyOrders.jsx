@@ -5,7 +5,6 @@ import {
   ReloadOutlined,
   CheckCircleFilled,
   DownloadOutlined,
-  DeleteOutlined,
   CloseCircleOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ const ClientOrders = () => {
     fetchMyOrders();
   }, [token]);
 
-  // 1. Full Order Cancel Handler
+  // Full Order Cancel Handler (Single Source of Cancellation)
   const handleCancelOrder = async (orderId) => {
     try {
       setActionLoading(true);
@@ -64,26 +63,6 @@ const ClientOrders = () => {
       }
     } catch (error) {
       message.error(error.response?.data?.message || "Failed to cancel order.");
-    } finally {
-      setActionLoading(false);
-    }
-  };
-
-  // 2. Specific Item Remove Handler
-  const handleRemoveOrderItem = async (orderId, itemId) => {
-    try {
-      setActionLoading(true);
-      const res = await api.delete(`/order/${orderId}/item/${itemId}`);
-      if (res.data?.success) {
-        message.success("Item removed from order.");
-        const updatedOrder = res.data.order;
-        setOrders((prev) =>
-          prev.map((o) => (o._id === orderId ? updatedOrder : o))
-        );
-        setSelectedOrder(updatedOrder);
-      }
-    } catch (error) {
-      message.error(error.response?.data?.message || "Failed to remove item.");
     } finally {
       setActionLoading(false);
     }
@@ -151,7 +130,6 @@ const ClientOrders = () => {
     setIsModalOpen(true);
   };
 
-  // Helper calculation for breakdown and fee
   const calculateSlipFinancials = (order) => {
     if (!order) return { itemsSubtotal: 0, appliedDeliveryFee: 0 };
 
@@ -293,7 +271,7 @@ const ClientOrders = () => {
         </div>
       )}
 
-      {/* Slip Modal with Individual Item Delete Option & Dynamic Financials */}
+      {/* Slip Modal: Purely Display & Download Slip */}
       <Modal
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
@@ -368,13 +346,10 @@ const ClientOrders = () => {
                   <div className="circle-cut right"></div>
                 </div>
 
-                {/* Items Breakdown with Delete Item Trigger */}
+                {/* Items Breakdown (Read Only) */}
                 <div className="slip-items-section">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h4>Vegetables Breakdown</h4>
-                    {selectedOrder.status === "pending" && (
-                      <span style={{ fontSize: 11, color: "#16a34a", fontWeight: 600 }}>Editable</span>
-                    )}
                   </div>
 
                   <div className="slip-items-list">
@@ -386,7 +361,6 @@ const ClientOrders = () => {
                       const price = Number(item.price || prod.price || 0);
                       const qty = Number(item.quantity || 1);
                       const imageUrl = getProduceImage(item);
-                      const isPending = (selectedOrder.status || "pending").toLowerCase() === "pending";
 
                       return (
                         <div className="slip-product-item" key={idx} style={{ position: "relative" }}>
@@ -404,29 +378,9 @@ const ClientOrders = () => {
                             </span>
                           </div>
 
-                          <div className="slip-prod-calc" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                            <div style={{ textAlign: "right" }}>
-                              <span className="calc-qty">x {qty}</span>
-                              <span className="calc-total">Rs. {Math.round(price * qty)}</span>
-                            </div>
-
-                            {isPending && selectedOrder.orderItems.length > 1 && (
-                              <Popconfirm
-                                title="Remove item?"
-                                description={`Remove ${name} from this order?`}
-                                onConfirm={() => handleRemoveOrderItem(selectedOrder._id, item._id)}
-                                okText="Remove"
-                                cancelText="No"
-                                okButtonProps={{ danger: true }}
-                              >
-                                <Button
-                                  type="text"
-                                  danger
-                                  icon={<DeleteOutlined style={{ fontSize: 14 }} />}
-                                  style={{ width: 28, height: 28, padding: 0 }}
-                                />
-                              </Popconfirm>
-                            )}
+                          <div className="slip-prod-calc" style={{ textAlign: "right" }}>
+                            <span className="calc-qty">x {qty}</span>
+                            <span className="calc-total">Rs. {Math.round(price * qty)}</span>
                           </div>
                         </div>
                       );
