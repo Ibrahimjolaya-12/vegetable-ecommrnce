@@ -47,7 +47,6 @@ const ClientOrders = () => {
     fetchMyOrders();
   }, [token]);
 
-  // Full Order Cancel Handler (Single Source of Cancellation)
   const handleCancelOrder = async (orderId) => {
     try {
       setActionLoading(true);
@@ -150,7 +149,6 @@ const ClientOrders = () => {
 
   return (
     <div className="client-orders-container">
-      {/* Top Header */}
       <div className="orders-top-header">
         <div>
           <h2>My Orders</h2>
@@ -204,7 +202,6 @@ const ClientOrders = () => {
                   {getStatusBadge(order.status)}
                 </div>
 
-                {/* Items Preview */}
                 <div className="card-items-preview">
                   {order.orderItems?.map((item, idx) => {
                     const prod = typeof item.product === "object" && item.product !== null ? item.product : {};
@@ -227,7 +224,6 @@ const ClientOrders = () => {
                   })}
                 </div>
 
-                {/* Card Footer Actions */}
                 <div className="card-footer-row" style={{ flexWrap: "wrap", gap: 10 }}>
                   <div className="total-block">
                     <span className="lbl">Total Bill</span>
@@ -271,22 +267,38 @@ const ClientOrders = () => {
         </div>
       )}
 
-      {/* Slip Modal: Purely Display & Download Slip */}
+      {/* Slip Modal: Scroll wrapper modal level par hai, receipt level par nahi */}
       <Modal
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
         centered
-        width={420}
+        width={440}
         className="digital-slip-modal"
         destroyOnHidden
+        styles={{
+          body: {
+            maxHeight: "85vh",
+            overflowY: "auto",
+            padding: "12px",
+          },
+        }}
       >
         {selectedOrder && (() => {
           const { itemsSubtotal, appliedDeliveryFee } = calculateSlipFinancials(selectedOrder);
 
           return (
             <div className="modal-inner-wrapper">
-              <div className="digital-receipt-slip" ref={receiptRef}>
+              {/* Receipt element: No scrollbar, full height expansion */}
+              <div
+                className="digital-receipt-slip"
+                ref={receiptRef}
+                style={{
+                  height: "auto",
+                  maxHeight: "none",
+                  overflow: "visible",
+                }}
+              >
                 <div className="slip-top-status">
                   <div className="check-circle">
                     <CheckCircleFilled />
@@ -346,13 +358,20 @@ const ClientOrders = () => {
                   <div className="circle-cut right"></div>
                 </div>
 
-                {/* Items Breakdown (Read Only) */}
+                {/* Items Breakdown: Saari items bina cut huye expand hongi */}
                 <div className="slip-items-section">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h4>Vegetables Breakdown</h4>
                   </div>
 
-                  <div className="slip-items-list">
+                  <div
+                    className="slip-items-list"
+                    style={{
+                      maxHeight: "none",
+                      overflow: "visible",
+                      height: "auto",
+                    }}
+                  >
                     {selectedOrder.orderItems?.map((item, idx) => {
                       const prod = typeof item.product === "object" && item.product !== null ? item.product : {};
                       const name = prod.name || item.name || "Sabzi";
@@ -388,7 +407,6 @@ const ClientOrders = () => {
                   </div>
                 </div>
 
-                {/* Dynamic Summary Calculations */}
                 <div className="slip-final-summary">
                   <div className="sum-line">
                     <span>Subtotal</span>
@@ -416,7 +434,7 @@ const ClientOrders = () => {
                 </div>
               </div>
 
-              <div className="slip-modal-actions d-flex flex-row align-items-center justify-content-between">
+              <div className="slip-modal-actions d-flex flex-row align-items-center justify-content-between" style={{ marginTop: 16 }}>
                 <Button
                   type="primary"
                   icon={<DownloadOutlined />}
