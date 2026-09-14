@@ -1,6 +1,6 @@
 import express from "express";
 import { Auth, isAdminAuth } from "../Middlewares/Auth.middleware.js";
-import { getDeliveryFee, updateDeliveryFee } from "../Controllers/settings.controller.js";
+import { getDeliveryFee, updateDeliveryFee } from "../Controllers/Settings.controller.js";
 
 const router = express.Router();
 
