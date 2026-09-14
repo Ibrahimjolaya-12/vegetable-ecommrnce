@@ -1,0 +1,87 @@
+@import "./Scss/bootstrap";
+@import "./Scss/aiModal";
+@import "./Scss/about";
+@import "./Scss/navbar";
+@import "./Scss/copyright";
+@import "./Scss/auth";
+@import "./Scss/homeHero";
+@import "./Scss/addProduct.scss";
+@import "./Scss/cart";
+@import "./Scss/wishlist";
+@import "./Scss/shop";
+@import "./Scss/clientOrders";
+@import "./Scss/adminDashboard";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden;  <-- Yeh sticky ko block karta hai, isay hata dein */
+  overflow-x: clip; /* Clean alternative jo sticky context nahi todta */
+}
+
+*::selection {
+  background-color: #2E7D32;
+  color: #fff;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #D5ECD6;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color:#2E7D32 ;
+}
+
+// 1. Pure UI ki default font family
+:root {
+  --font-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-urdu: 'Noto Nastaliq Urdu', 'Noto Sans Arabic', serif;
+}
+
+body {
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+// 2. Jahan jahan Urdu names ya subtitles aa rahe hain
+.ur-name,
+.name-ur,
+.slip-p-urdu,
+.urdu-text {
+  font-family: var(--font-urdu) !important;
+  line-height: 1.8; // Nastaliq ke cut na hone ke liye line-height zaroori hai
+  letter-spacing: 0;
+  display: inline-block;
+}
+
+#root{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main{
+  flex: 1 0 auto;
+}
+
+
+
+/* Smooth First-Load Blur Reveal Animation */
+@keyframes pageBlurReveal {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(16px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+.home-page-reveal {
+  animation: pageBlurReveal 2.00s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: filter, opacity, transform;
+}
