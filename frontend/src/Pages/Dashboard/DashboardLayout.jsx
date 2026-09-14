@@ -361,7 +361,7 @@
 //   // Real-time Socket.io Notification Listener
 //   useEffect(() => {
 //     // Backend ka origin URL
-//     const socket = io("http://localhost:3000", {
+//     const socket = io("https://vegetable-ecommrnce-backend.vercel.app", {
 //       withCredentials: true,
 //     });
 
@@ -648,7 +648,7 @@ const DashboardLayout = () => {
   // Real-time Socket.io Notification Listener
   useEffect(() => {
     // 1. Connection initialize
-    const socket = io("http://localhost:3000", {
+    const socket = io("https://vegetable-ecommrnce-backend.vercel.app", {
       withCredentials: true,
       transports: ["websocket", "polling"],
     });

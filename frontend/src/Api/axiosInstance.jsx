@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Central Backend API Instance
 const api = axios.create({
-  baseURL: "http://localhost:3000/api", // Apne backend port ke mutabiq check kar lena (e.g. 5000 ya 3000)
+  baseURL: "https://vegetable-ecommrnce-backend.vercel.app/api", // Apne backend port ke mutabiq check kar lena (e.g. 5000 ya 3000)
   withCredentials: true,
 });
 

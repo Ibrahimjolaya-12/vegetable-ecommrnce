@@ -21,7 +21,7 @@
 // const allowedOrigins = [
 //   process.env.CLIENT_URL,
 //   "http://localhost:5173",
-//   "http://localhost:3000",
+//   "https://vegetable-ecommrnce-backend.vercel.app",
 // ].filter(Boolean);
 
 // app.use(
@@ -110,7 +110,8 @@ const server = http.createServer(app);
 const allowedOrigins = [
   process.env.CLIENT_URL,
   "http://localhost:5173",
-  "http://localhost:3000",
+  "https://vegetable-ecommrnce-backend.vercel.app",
+  "https://sabzi-mandi.vercel.app"
 ].filter(Boolean);
 
 app.use(
