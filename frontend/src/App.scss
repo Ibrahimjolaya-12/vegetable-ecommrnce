@@ -85,3 +85,15 @@ main{
   animation: pageBlurReveal 2.00s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: filter, opacity, transform;
 }
+
+
+// html, body {
+//   overflow-y: auto;
+//   scrollbar-width: none;
+//   -ms-overflow-style: none;
+// }
+
+// html::-webkit-scrollbar,
+// body::-webkit-scrollbar {
+//   display: none;
+// }

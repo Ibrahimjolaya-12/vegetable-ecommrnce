@@ -13,7 +13,6 @@ import { useCart } from "../../../Contexts/CartContext";
 import { useAuth } from "../../../Contexts/AuthContext";
 import { useWishlist } from "../../../Contexts/WishlistContext";
 import api from "../../../Api/axiosInstance";
-import SabziAiModal from "../../../Components/SabziAiAssistant";
 
 const Hero = () => {
   const [products, setProducts] = useState([]);
@@ -59,7 +58,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="home-page home-page-reveal" style={{ position: "relative" }}>
+    <div className="home-page home-page-reveal">
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -125,7 +124,6 @@ const Hero = () => {
 
               return (
                 <div className="product-card" key={item._id}>
-                  {/* Image Container */}
                   <div className="image-container">
                     <img src={item.imageURL} alt={item.name} loading="lazy" />
                     <button
@@ -145,7 +143,6 @@ const Hero = () => {
                     )}
                   </div>
 
-                  {/* Content Container */}
                   <div className="product-info">
                     <div className="name-wrap">
                       <h3 className="en-name">{item.name}</h3>
@@ -177,9 +174,6 @@ const Hero = () => {
           </div>
         )}
       </section>
-
-      {/* Floating Vegetable AI Widget: Renders exclusively on Home Page */}
-      <SabziAiModal />
     </div>
   );
 };

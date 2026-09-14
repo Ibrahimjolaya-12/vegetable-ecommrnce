@@ -50,8 +50,9 @@
   position: fixed;
   bottom: 95px;
   right: 24px;
+  scrollbar-width: thin;
   width: 380px;
-  height: 540px;
+  height: 440px;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
@@ -197,3 +198,39 @@
 
 
 
+/* Screen ke Right Bottom Corner par hamesha chipka rahega */
+.sabzi-ai-floating-trigger {
+  position: fixed !important;
+  bottom: 35px !important;
+  right: 24px !important;
+  z-index: 9999 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+  border-radius: 50px;
+}
+
+/* Chat Modal Box */
+.sabzi-ai-modal-box {
+  position: fixed !important;
+  bottom: 150px !important;
+  right: 24px !important;
+  width: 380px !important;
+  max-width: calc(100vw - 32px) !important;
+  height: 320px !important;
+  max-height: calc(100vh - 120px) !important;
+  z-index: 9999 !important;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.no-scrollbar {
+  overflow-y: auto;          /* Scroll chalta rahega */
+  scrollbar-width: none;     /* Firefox ke liye */
+  -ms-overflow-style: none;  /* Internet Explorer aur purane Edge ke liye */
+}
+
+/* Chrome, Safari, aur naye Edge ke liye */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

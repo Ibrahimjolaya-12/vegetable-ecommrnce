@@ -98,7 +98,7 @@ const SabziAiModal = () => {
           </div>
 
           {/* Quick Prompts */}
-          <div className="ai-quick-tags">
+          <div className="ai-quick-tags no-scrollbar" >
             {quickPrompts.map((q, i) => (
               <button key={i} onClick={() => handleAsk(q)}>
                 <BulbOutlined /> {q}
@@ -115,7 +115,7 @@ const SabziAiModal = () => {
             ))}
             {loading && (
               <div className="chat-bubble ai loading">
-                <Spin size="small" /> <span>Mandi data check ho raha hai...</span>
+                <Spin size="small" /> <span>Answer in the way...</span>
               </div>
             )}
             <div ref={chatEndRef} />
@@ -125,7 +125,7 @@ const SabziAiModal = () => {
           <div className="ai-chat-footer">
             <Input
               value={question}
-              placeholder="Sawal poochein..."
+              placeholder="Ask about vegetable ..."
               onChange={(e) => setQuestion(e.target.value)}
               onPressEnter={() => handleAsk()}
               disabled={loading}

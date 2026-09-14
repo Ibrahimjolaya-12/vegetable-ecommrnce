@@ -9,11 +9,13 @@ import Shop from "./Shop"
 import About from "./About"
 import CustomerCare from "./FooterLinks/CustomerCare"
 import ClientOrders from "./MyOrders"
+import SabziAiModal from "../../Components/SabziAiAssistant"
 
 const Client = () => {
   return (
     <>
     <Header/>
+    <SabziAiModal />
     <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
