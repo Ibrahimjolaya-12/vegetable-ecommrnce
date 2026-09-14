@@ -170,6 +170,10 @@ if (process.env.ENV !== "production") {
   dns.setServers(["8.8.8.8", "8.8.4.4", "1.1.1.1"]);
 }
 
+app.get("/", (req, res) => {
+  res.send("Vegetable Server running successfully ...")
+});
+
 connectDB();
 const PORT = process.env.PORT || 3000;
 
